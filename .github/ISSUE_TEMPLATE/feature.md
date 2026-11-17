@@ -1,7 +1,11 @@
-name: "✨ Feature"
-description: "새로운 기능 추가"
-labels: ["feature"]
-body:
+---
+name: Feature
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ncs01060
+
+---
 
 - type: textarea
   attributes:
