@@ -5,6 +5,7 @@ from core.token import createAcessToken
 from core.database import getDB
 from models.user import User
 import bcrypt
+from fastapi.responses import JSONResponse
 from sqlalchemy import select
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -26,9 +27,14 @@ def login(req:Rogin,db: Session = Depends(getDB)):
     )
 
     access_token = createAcessToken(data={"sub": user.username})
-    return {
-      "access_token": access_token,
-      "token_type": "bearer",
-      "username": user.username,
-    }
+    response = JSONResponse({"message": "ok"})
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,  
+        secure=True,    
+        samesite="lax",  
+        max_age=3600     
+    )
+    return response
     
